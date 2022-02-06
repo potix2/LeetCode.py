@@ -12,32 +12,24 @@ class TreeNode:
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
-        self.root = root
-        leftmost = self.root
-        while leftmost:
-            self.node = leftmost
-            leftmost = leftmost.left
+        self._index = -1
+        self._sorted_nodes = []
+        self._inorder(root)
 
-    def _find_successor(self) -> Optional[TreeNode]:
-        successor = None
-        root = self.root
+    def _inorder(self, root):
+        if not root:
+            return
 
-        while root:
-            if self.node.val >= root.val:
-                root = root.right
-            else:
-                successor = root
-                root = root.left
-
-        return successor
+        self._inorder(root.left)
+        self._sorted_nodes.append(root.val)
+        self._inorder(root.right)
 
     def next(self) -> int:
-        val = self.node.val
-        self.node = self._find_successor()
-        return val
+        self._index += 1
+        return self._sorted_nodes[self._index]
 
     def hasNext(self) -> bool:
-        return self.node
+        return self._index + 1 < len(self._sorted_nodes)
 
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
