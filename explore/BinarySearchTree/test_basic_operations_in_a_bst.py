@@ -2,6 +2,7 @@ from explore.BinarySearchTree.basic_operations_in_a_bst import Solution, TreeNod
 
 from typing import List
 
+
 def helper(node: TreeNode) -> List[int]:
     if node is None:
         return []
@@ -14,3 +15,10 @@ def test_search_bst():
     expect = [2, 1, 3]
     solution = Solution()
     assert helper(solution.searchBST(root, 2)) == expect
+
+
+def test_insert_into_bst():
+    root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7))
+    expect = [4, 2, 1, 3, 7, 5]
+    solution = Solution()
+    assert helper(solution.insertIntoBST(root, 5)) == expect
